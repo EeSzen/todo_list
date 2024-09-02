@@ -80,11 +80,6 @@ $database = new PDO(
             <?php endif;?>
             </form>
             
-            
-
-              
-              
-
               <span class="ms-2 "><?=$task['label']?></span>
             </div>
             <!-- delete -->
