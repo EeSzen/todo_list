@@ -96,6 +96,7 @@ $database = new PDO(
           
           
         </ul>
+        <!-- add task -->
         <div class="mt-4">
           <form method="POST"action="todo.php" class="d-flex justify-content-between align-items-center">
             <input
