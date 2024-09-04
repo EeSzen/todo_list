@@ -25,6 +25,24 @@ if(empty($name) || empty($email) || empty($password) || empty($confirm_password)
 }else if(strlen($password) < 8){
     echo "<h3>Password must contain at least 8 characters</h3>";
 }else{
+     // check if the email already in-used or not
+        // sql command
+        $sql = "SELECT * FROM users WHERE email = :email";    
+
+        //prepare
+        $query = $database -> prepare($sql);
+
+        // execute
+        $query -> execute([
+            'email' => $email
+        ]);
+
+        // fetch
+        $user = $query -> fetch(); //return the first row starting from the query row
+        // if user exists, it means the email already in-used
+        if ( $user ) {
+            echo '<script>alert("The email entered already in-used! Please use another email");window.location.href="signup.php";</script>';
+        }else{
     
     $sql = "INSERT INTO users(`name`,`email`,`password`) VALUES( :name, :email, :password)";
     $query = $database -> prepare( $sql );
@@ -34,7 +52,8 @@ if(empty($name) || empty($email) || empty($password) || empty($confirm_password)
         "password" => password_hash($password , PASSWORD_DEFAULT)
     ]);
 
-header("Location: login.php");
+header("Location: /login");
 exit;
 
+        }
 };

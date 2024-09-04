@@ -21,7 +21,7 @@ if($tick_box == 0){
         'id' => $task_id
     ]);
 
-    header("Location: index.php");
+    header("Location: /");
     exit;
 }else{
     $sql = "UPDATE todos SET completed = 0 WHERE id = :id";
@@ -30,7 +30,7 @@ if($tick_box == 0){
         'id' => $task_id
     ]);
 
-    header("Location: index.php");
+    header("Location: /");
     exit;
 }
 

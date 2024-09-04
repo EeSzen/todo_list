@@ -16,6 +16,6 @@ if(empty($task)){
     $query = $database ->prepare( $sql );
     $query -> execute(['label'=> $task]);
 
-    header("Location: index.php");
+    header("Location: /");
     exit;
 }

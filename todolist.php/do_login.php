@@ -36,7 +36,7 @@ if(empty($email) || empty($password)){
         if(password_verify($password, $user["password"])){
             // login the user
             $_SESSION["user"] = $user;
-            header("Location: index.php");
+            header("Location: /");
             exit; 
         }else{
             echo "The password provided is incorrect";
