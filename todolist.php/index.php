@@ -1,5 +1,5 @@
 <?php
-  // put your backend code
+session_start();
 
   // 1. collect database info
 $host = "localhost";
@@ -48,12 +48,14 @@ $database = new PDO(
     </style>
   </head>
   <body>
+    <?php if (isset($_SESSION["user"])):?>
     <div
       class="card rounded shadow-sm"
-      style="max-width: 500px; margin: 60px auto;"
+      style="max-width: 600px; margin: 60px auto;"
     >
       <div class="card-body">
-        <h3 class="card-title mb-3">My Todo List</h3>
+        <h3 class="card-title mb-3"><?= $_SESSION["user"]["name"];?>'s Todo List</h3>
+
         <ul class="list-group">
 
 
@@ -108,8 +110,28 @@ $database = new PDO(
             <button class="btn btn-primary btn-sm rounded ms-2">Add</button>
           </form>
         </div>
+        <div class="text-center">
+      <a href="logout.php" class="text-decoration-none"
+        ><button class="btn btn-sm btn-danger mx-auto mt-5">Log Out</button></a
+      >
+    </div>
       </div>
     </div>
+    <?php else :?>
+      <div class="card rounded shadow-sm" style="max-width: 500px; margin: 60px auto;">
+        <div class="card-body">
+        <h3 class="card-title mb-3">Log In to continue</h3>
+          <a href="login.php"><button class="btn btn-sm btn-primary mb-2">Log In</button></a>
+          <a href="signup.php"><button class="btn btn-sm btn-primary mb-2">Sign Up</button></a>
+        </div>
+      </div>
+    <?php endif;?>
+
+    
+
+
+
+
 
 
 
