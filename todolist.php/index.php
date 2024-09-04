@@ -54,7 +54,7 @@ $database = new PDO(
       style="max-width: 600px; margin: 60px auto;"
     >
       <div class="card-body">
-        <h3 class="card-title mb-3"><?= $_SESSION["user"]["name"];?>'s Todo List</h3>
+        <h2 class="card-title mb-3 text-center"><?= $_SESSION["user"]["name"];?>'s Todo List</h2>
 
         <ul class="list-group">
 
@@ -118,9 +118,10 @@ $database = new PDO(
       </div>
     </div>
     <?php else :?>
-      <div class="card rounded shadow-sm" style="max-width: 500px; margin: 60px auto;">
+      <div class="card rounded shadow-sm text-center" style="max-width: 500px; margin: 60px auto;">
         <div class="card-body">
-        <h3 class="card-title mb-3">Log In to continue</h3>
+        <h2 class="card-title mb-2">To Do list</h2>
+        <p class = "mb-4">Please log in to continue</p>
           <a href="login.php"><button class="btn btn-sm btn-primary mb-2">Log In</button></a>
           <a href="signup.php"><button class="btn btn-sm btn-primary mb-2">Sign Up</button></a>
         </div>
