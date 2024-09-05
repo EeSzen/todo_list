@@ -1,18 +1,8 @@
 <?php
 
+// connnect to database
+$database = connectToDB();
 
-  // 1. collect database info
-$host = "localhost";
-$database_name = "todolist";// connecting to which database
-$database_user = "root";
-$database_password = "password";
-
-// 2. connect to database (PDO - PHP database object)
-$database = new PDO(
-  "mysql:host=$host;dbname=$database_name",
-  $database_user,//username
-  $database_password//password
-);
 
 // 3. get students data from the database
   // 3.1 - SQL command (recipe)
@@ -24,30 +14,11 @@ $database = new PDO(
   // 3.4 - fetch all the results (eat)
   $label = $query->fetchAll();
 
+  require 'parts/header.php';
 
 ?>
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>TODO App</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
-    />
-    <style type="text/css">
-      body {
-        background: #f1f1f1;
-      }
-    </style>
-  </head>
-  <body>
+
     <?php if (isset($_SESSION["user"])):?>
     <div
       class="card rounded shadow-sm "
@@ -63,7 +34,7 @@ $database = new PDO(
           <li class="list-group-item d-flex justify-content-between align-items-center">
           <div class="d-flex">   
             <!-- checkbox -->
-            <form method ="POST" action = "tick_box.php">
+            <form method ="POST" action = "/task/tick_box">
               <input type="hidden"name="task_id"value="<?=$task["id"]?>"/>
                 <input type="hidden"name="completed"value="<?=$task["completed"]?>"/>
 
@@ -86,7 +57,7 @@ $database = new PDO(
             </div>
             <!-- delete -->
             <div>
-              <form method ="POST" action = "del_task.php">
+              <form method ="POST" action = "/task/delete">
                 <button class="btn btn-sm btn-danger">
                   <input type="hidden"name = "task_id"value="<?=$task["id"]?>"/>
                   <i class="bi bi-trash"></i>
@@ -99,8 +70,9 @@ $database = new PDO(
           
         </ul>
         <!-- add task -->
+        <?php require 'parts/error_box.php'?>
         <div class="mt-4">
-          <form method="POST"action="todo.php" class="d-flex justify-content-between align-items-center">
+          <form method="POST"action="/task/add" class="d-flex justify-content-between align-items-center">
             <input
               type="text"
               class="form-control"
@@ -122,20 +94,18 @@ $database = new PDO(
         <div class="card-body ">
         <h2 class="card-title mb-2">To Do list</h2>
         <p class = "mb-4">Please log in to continue</p>
-          <a href="/login"><button class="btn btn-sm btn-primary mb-2">Log In</button></a>
-          <a href="/signup"><button class="btn btn-sm btn-primary mb-2">Sign Up</button></a>
+          <a href="/login" class="btn btn-sm btn-primary mb-2">Log In</a>
+          <a href="/signup" class="btn btn-sm btn-primary mb-2">Sign Up</a>
         </div>
       </div>
     <?php endif;?>
 
+
     
+<?php
+  require 'parts/footer.php';
 
 
 
 
 
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
-</html>

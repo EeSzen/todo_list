@@ -1,11 +1,8 @@
 <?php
 
-$host = "localhost";
-$database_name = "todolist";
-$database_user = "root";
-$database_password = "password";
+// connnect to database
+$database = connectToDB();
 
-$database = new PDO("mysql:host=$host;dbname=$database_name",$database_user,$database_password);
 
 $tick_box = $_POST["completed"];
 $task_id = $_POST["task_id"];

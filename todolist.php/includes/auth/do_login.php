@@ -1,17 +1,9 @@
 <?php
-session_start();
 
 
-$host = "localhost";
-$database_name = "todolist";
-$database_user = "root";
-$database_password = "password";
+// connnect to database
+$database = connectToDB();
 
-$database = new PDO(
-    "mysql:host=$host;dbname=$database_name",
-        $database_user, // username
-        $database_password // password
-    );
 
 // get data from login.php
 $email = $_POST["email"];
@@ -19,7 +11,9 @@ $password = $_POST["password"];
 
 // check for empty imput
 if(empty($email) || empty($password)){
-    echo "<h1>Please fill up all details in the form, Thank You</h1>";
+    $_SESSION['error'] = "Please fill up all details in the form, Thank You";
+    header ("Location: /login");
+    exit;
 }else{
     $sql = "SELECT * FROM users WHERE email = :email";
     $query = $database -> prepare($sql);
@@ -39,10 +33,10 @@ if(empty($email) || empty($password)){
             header("Location: /");
             exit; 
         }else{
-            echo "The password provided is incorrect";
-        };
+            setError("The password provided is incorrect","/login");
+        }
 
     }else{
-        echo "The Email Does Not Exist";
+        setError("The Email Does Not Exist","/login");
     }
 }

@@ -1,15 +1,7 @@
 <?php
 
-$host = "localhost";
-$database_name = "todolist";
-$database_user = "root";
-$database_password = "password";
-
-$database = new PDO(
-    "mysql:host=$host;dbname=$database_name",
-        $database_user, // username
-        $database_password // password
-    );
+// connnect to database
+$database = connectToDB();
 
 // get data from signup.php
 $name = $_POST["name"];
@@ -19,11 +11,11 @@ $confirm_password = $_POST["confirm_password"];
 
 // check for empty input
 if(empty($name) || empty($email) || empty($password) || empty($confirm_password)){
-    echo "<h1>Please fill up all details in the form, Thank You</h1>";
+    setError("Please fill up all details in the form, Thank You","/signup");
 }else if($password !== $confirm_password){
-    echo "<h3>Password Unmatch</h3>";
+    setError("Password Unmatch","/signup");
 }else if(strlen($password) < 8){
-    echo "<h3>Password must contain at least 8 characters</h3>";
+    setError("Password must contain at least 8 characters","/signup");
 }else{
      // check if the email already in-used or not
         // sql command
